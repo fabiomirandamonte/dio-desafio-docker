@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+
+  mysqlsrv:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: "Senha123"
+      MYSQL_DATABASE: "meubanco"
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - minha-rede
+
+  php:
+    build: ./php
+    volumes:
+      - ./src:/var/www/html
+    networks:
+      - minha-rede
+    depends_on:
+      - mysqlsrv
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "4500:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - minha-rede
+    depends_on:
+      - php
+
+  adminer:
+    image: adminer
+    ports:
+      - "8080:8080"
+    networks:
+      - minha-rede
+
+networks:
+  minha-rede:
+    driver: bridge
+
+volumes:
+  mysql_data:
