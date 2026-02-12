@@ -13,10 +13,11 @@ header('Content-Type: text/html; charset=iso-8859-1');
 
 echo 'Versao Atual do PHP: ' . phpversion() . '<br>';
 
-$servername = "54.234.153.24";
+$servername = "mysqlsrv";
 $username = "root";
 $password = "Senha123";
 $database = "meubanco";
+
 
 // Criar conexão
 

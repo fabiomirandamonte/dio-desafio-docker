@@ -15,7 +15,9 @@ services:
       - minha-rede
 
   php:
-    build: ./php
+    build: 
+      context: ./php
+      dockerfile: dockerfile
     volumes:
       - ./src:/var/www/html
     networks:
